@@ -1,0 +1,8 @@
+publish new release w/ fixes:
+  ✔ publish v0.2.0 after fixing release issues (doc links broken, doc fixes, etc) @done(23-08-20 18:41)
+    - https://docs.rs/r3bl_ansi_color/latest/r3bl_ansi_color/
+    - https://docs.rs/releases/queue is where you can find any pending docs.rs builds
+
+publish new release after testing on macOS:
+  ☐ test on macOS & linux
+  ☐ publish v0.3.0 and start using github tags to track releases

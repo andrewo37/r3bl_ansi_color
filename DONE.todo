@@ -1,0 +1,34 @@
+create basic structure:
+  ✔ `main.rs` with some tests that runs @done(23-08-17 20:00)
+  ✔ figure out simple UX / DX for how to use this API @done(23-08-19 12:31)
+  ✔ create color types: @done(23-08-19 12:31)
+    ✔ RgbColor @done(23-08-19 12:31)
+    ✔ ANSI256 @done(23-08-19 12:31)
+
+convert colors to ANSI256:
+  ✔ convert rgb to ansi 256 color @done(23-08-19 12:31)
+  ✔ convert ansi 256 color to rgb @done(23-08-19 12:31)
+
+testing:
+  ✔ add color support override for testing @done(23-08-19 20:00)
+
+output colors to stdout:
+  ✔ output ANSI escape codes to stdout @done(23-08-20 10:53)
+
+support styles:
+  ✔ instead of fg, bg color, add a style enum (w/ bold, italic, underline, etc) @done(23-08-20 10:53)
+  ✔ change `FormattedString` to support `vec![style]` @done(23-08-20 14:42)
+
+dx review:
+  ✔ make sure that all the functions and symbols are consistent and written in active tense @done(23-08-19 12:45)
+
+docs:
+  ✔ write docs.rs documentation @done(23-08-20 14:42)
+  ✔ write README.md (add images for the following, which are in the github repo) @done(23-08-20 14:42)
+    ✔ Code examples describing how to create colors: default, RGB, ANSI256 @done(23-08-20 14:42)
+    ✔ Code examples describing how to output colors to stdout @done(23-08-20 14:42)
+
+publish:
+  ✔ Apache 2.0 license @done(23-08-20 14:42)
+  ✔ Add copyrights to each file @done(23-08-20 14:42)
+  ✔ crates.io v0.1.0 https://crates.io/crates/r3bl_ansi_color @done(23-08-20 14:42)
