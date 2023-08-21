@@ -38,9 +38,15 @@
 //! > the terminal supports truecolor or ANSI 256 colors, etc. Both this crate and the `concolor-query`
 //! > crate are licensed under the Apache 2.0 license.
 //!
-//! Here's a screenshot of running the `main` example:
+//! Here's a screenshot of running the `main` example on various operating systems:
 //!
-//! ![Screenshot](https://github.com/r3bl-org/r3bl_ansi_color/raw/main/docs/screenshot.png)
+//! | ![Linux screenshot](https://github.com/r3bl-org/r3bl_ansi_color/raw/main/docs/screenshot_linux.png) |
+//! |:--:|
+//! | *Running on Linux Tilix* |
+//!
+//! | ![Windows screenshot](https://github.com/r3bl-org/r3bl_ansi_color/raw/main/docs/screenshot_windows.png) |
+//! |:--:|
+//! | *Running on Windows Terminal* |
 //!
 //! ## How to use it?
 //!

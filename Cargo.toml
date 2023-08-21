@@ -4,8 +4,10 @@ description = "Rust crate to generate formatted ANSI 256 (8-bit) and truecolor (
 # At most 5 keywords w/ no spaces, each has max length of 20 char.
 keywords = ["color", "terminal", "ansi", "cli"]
 categories = ["command-line-interface", "command-line-utilities"]
-# When you change this, make sure to update `README.md` as well.
-version = "0.2.0"
+
+# When you change this, make sure to update `README.md` and `lib.rs` as well.
+version = "0.3.0"
+
 edition = "2021"
 readme = "README.md" # This is not included in cargo docs.
 authors = ["Nazmul Idris <idris@developerlife.com>"]
