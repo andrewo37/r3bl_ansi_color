@@ -1,18 +1,19 @@
 # r3bl_ansi_color crate
-
 <a id="markdown-r3bl_ansi_color-crate" name="r3bl_ansi_color-crate"></a>
+
 
 <!-- TOC -->
 
 - [What does it do?](#what-does-it-do)
+- [How to use it?](#how-to-use-it)
 - [Build, run, test tasks](#build-run-test-tasks)
 - [References](#references)
 
 <!-- /TOC -->
 
 ## What does it do?
-
 <a id="markdown-what-does-it-do%3F" name="what-does-it-do%3F"></a>
+
 
 Rust crate to generate formatted ANSI 256 (8-bit) and truecolor (24-bit) color output to stdout. On
 macOS, the default Terminal.app does not support truecolor, so ANSI 256 colors are used instead.
@@ -22,11 +23,18 @@ macOS, the default Terminal.app does not support truecolor, so ANSI 256 colors a
 > the terminal supports truecolor or ANSI 256 colors, etc. Both this crate and the `concolor-query`
 > crate are licensed under the Apache 2.0 license.
 
-Here's a screenshot of running the `main` example:
+Here's a screenshot of running the `main` example on various operating systems:
 
-![Screenshot](docs/screenshot.png)
+| ![Linux screenshot](docs/screenshot_linux.png) |
+|:--:|
+| *Running on Linux Tilix* |
+
+| ![Windows screenshot](docs/screenshot_windows.png) |
+|:--:|
+| *Running on Windows Terminal* |
 
 ## How to use it?
+<a id="markdown-how-to-use-it%3F" name="how-to-use-it%3F"></a>
 
 The main struct that we have to consider is `AnsiStyledText`. It has two fields:
 
@@ -54,8 +62,8 @@ Please a look at the
 better idea of how to use this crate.
 
 ## Build, run, test tasks
-
 <a id="markdown-build%2C-run%2C-test-tasks" name="build%2C-run%2C-test-tasks"></a>
+
 
 - Build: `cb`
 - Run examples: `cr --example main`
@@ -88,8 +96,8 @@ facilitate the above tasks. Here is a list of them.
      you can get it with [`brew`](https://brew.sh/).
 
 ## References
-
 <a id="markdown-references" name="references"></a>
+
 
 - https://notes.burke.libbey.me/ansi-escape-codes/
 - https://www.asciitable.com/
