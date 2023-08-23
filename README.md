@@ -7,6 +7,7 @@
 - [How to use it?](#how-to-use-it)
 - [Build, run, test tasks](#build-run-test-tasks)
 - [References](#references)
+- [Why make a new crate for this?](#why-make-a-new-crate-for-this)
 
 <!-- /TOC -->
 
@@ -28,6 +29,14 @@ Here's a screenshot of running the `main` example on various operating systems:
 | ![Windows screenshot](docs/screenshot_windows.png) |
 |:--:|
 | *Running on Windows Terminal* |
+
+| ![macOS screenshot Terminal app](docs/screenshot_macos_terminal_app.png) |
+|:--:|
+| *Running on macOS terminal app (note ANSI 256 runtime detection)* |
+
+| ![macOS screenshot iTerm app](docs/screenshot_macos_iterm_app.png) |
+|:--:|
+| *Running on macOS terminal app (note Truecolor runtime detection)* |
 
 ## How to use it?
 <a id="markdown-how-to-use-it%3F" name="how-to-use-it%3F"></a>
@@ -101,6 +110,7 @@ facilitate the above tasks. Here is a list of them.
 - https://www.compuphase.com/cmetric.htm
 
 ## Why make a new crate for this?
+<a id="markdown-why-make-a-new-crate-for-this%3F" name="why-make-a-new-crate-for-this%3F"></a>
 
 - There are a few crates on crates.io that do similar things but they don't amenable
   licenses.
