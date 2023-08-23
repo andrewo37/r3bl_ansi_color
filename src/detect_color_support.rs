@@ -15,7 +15,12 @@
  *   limitations under the License.
  */
 
+use std::sync::atomic::{AtomicI8, Ordering};
 use std::env;
+
+/// Global [ColorSupport] override.
+static mut COLOR_SUPPORT_SET_VALUE: AtomicI8 =
+    AtomicI8::new(ColorSupport::NotSet as i8);
 
 #[test]
 fn test_supports_color() {
@@ -30,11 +35,37 @@ pub enum Stream {
     Stderr,
 }
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+
 pub enum ColorSupport {
     Ansi256,
     Truecolor,
     NoColor,
+    NotSet,
+}
+
+mod convert_between_color_and_i8 {
+    impl From<i8> for super::ColorSupport {
+        fn from(value: i8) -> Self {
+            match value {
+                1 => super::ColorSupport::Ansi256,
+                2 => super::ColorSupport::Truecolor,
+                3 => super::ColorSupport::NoColor,
+                _ => super::ColorSupport::NotSet,
+            }
+        }
+    }
+
+    impl From<super::ColorSupport> for i8 {
+        fn from(value: super::ColorSupport) -> Self {
+            match value {
+                super::ColorSupport::Ansi256 => 1,
+                super::ColorSupport::Truecolor => 2,
+                super::ColorSupport::NoColor => 3,
+                _ => -1,
+            }
+        }
+    }
 }
 
 pub fn supports_color(stream: Stream) -> ColorSupport {
@@ -77,6 +108,16 @@ pub fn supports_color(stream: Stream) -> ColorSupport {
     }
 
     ColorSupport::NoColor
+}
+
+pub fn color_support_override_set(value: ColorSupport) {
+    unsafe {
+        COLOR_SUPPORT_SET_VALUE.store(value.into(), Ordering::SeqCst);
+    };
+}
+
+pub fn color_support_set_get() -> ColorSupport {
+    unsafe { COLOR_SUPPORT_SET_VALUE.load(Ordering::SeqCst).into() }
 }
 
 fn is_a_tty(stream: Stream) -> bool {
