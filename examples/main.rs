@@ -60,7 +60,11 @@ fn main() {
     // Use runtime detection to determine the color support.
     {
         color_support_override_set(ColorSupportOverride::NotSet);
-        print_text("> Runtime detection of color support");
+        let msg = format!(
+            "> Runtime detection of color support ({:?})",
+            supports_color(Stream::Stdout)
+        );
+        print_text(&msg);
     }
 }
 

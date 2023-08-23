@@ -1,7 +1,6 @@
 # r3bl_ansi_color crate
 <a id="markdown-r3bl_ansi_color-crate" name="r3bl_ansi_color-crate"></a>
 
-
 <!-- TOC -->
 
 - [What does it do?](#what-does-it-do)
@@ -14,14 +13,11 @@
 ## What does it do?
 <a id="markdown-what-does-it-do%3F" name="what-does-it-do%3F"></a>
 
-
 Rust crate to generate formatted ANSI 256 (8-bit) and truecolor (24-bit) color output to stdout. On
 macOS, the default Terminal.app does not support truecolor, so ANSI 256 colors are used instead.
 
-> This crate only has a single dependency which is the
-> [`concolor-query` crate](https://crates.io/crates/concolor-query). It is used to determine whether
-> the terminal supports truecolor or ANSI 256 colors, etc. Both this crate and the `concolor-query`
-> crate are licensed under the Apache 2.0 license.
+> This crate performs its own detection of terminal color capability heuristically. And does not
+> use other crates to perform this function.
 
 Here's a screenshot of running the `main` example on various operating systems:
 
@@ -64,10 +60,9 @@ better idea of how to use this crate.
 ## Build, run, test tasks
 <a id="markdown-build%2C-run%2C-test-tasks" name="build%2C-run%2C-test-tasks"></a>
 
-
-- Build: `cb`
-- Run examples: `cr --example main`
-- Run tests: `ct`
+- Build: `cargo build`
+- Run examples: `cargo run --example main`
+- Run tests: `cargo test`
 
 [Fish scripts](https://developerlife.com/2021/01/19/fish-scripting-manual/) are provided to
 facilitate the above tasks. Here is a list of them.
@@ -97,7 +92,6 @@ facilitate the above tasks. Here is a list of them.
 
 ## References
 <a id="markdown-references" name="references"></a>
-
 
 - https://notes.burke.libbey.me/ansi-escape-codes/
 - https://www.asciitable.com/

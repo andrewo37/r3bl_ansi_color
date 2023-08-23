@@ -33,10 +33,8 @@
 //! Rust crate to generate formatted ANSI 256 (8-bit) and truecolor (24-bit) color output to stdout. On
 //! macOS, the default Terminal.app does not support truecolor, so ANSI 256 colors are used instead.
 //!
-//! > This crate only has a single dependency which is the
-//! > [`concolor-query` crate](https://crates.io/crates/concolor-query). It is used to determine whether
-//! > the terminal supports truecolor or ANSI 256 colors, etc. Both this crate and the `concolor-query`
-//! > crate are licensed under the Apache 2.0 license.
+//! > This crate performs its own detection of terminal color capability heuristically. And does not
+//! > use other crates to perform this function.
 //!
 //! Here's a screenshot of running the `main` example on various operating systems:
 //!
@@ -131,9 +129,11 @@ pub mod ansi_styled_text;
 pub mod color;
 pub mod color_support_override;
 pub mod convert;
+pub mod detect_color_support;
 
 pub use ansi_escape_codes::*;
 pub use ansi_styled_text::*;
 pub use color::*;
 pub use color_support_override::*;
 pub use convert::*;
+pub use detect_color_support::*;

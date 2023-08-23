@@ -4,5 +4,9 @@ publish new release w/ fixes:
     - https://docs.rs/releases/queue is where you can find any pending docs.rs builds
 
 publish new release after testing on macOS:
-  ☐ test on macOS & linux
+  ✔ test on macOS & linux @done(23-08-22 18:18)
   ☐ publish v0.3.0 and start using github tags to track releases
+
+write tests:
+  ☐ write exhaustive tests for all functions
+  ☐ test extensively on macOS, linux, windows

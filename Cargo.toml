@@ -6,7 +6,7 @@ keywords = ["color", "terminal", "ansi", "cli"]
 categories = ["command-line-interface", "command-line-utilities"]
 
 # When you change this, make sure to update `README.md` and `lib.rs` as well.
-version = "0.3.0"
+version = "0.4.0"
 
 edition = "2021"
 readme = "README.md" # This is not included in cargo docs.
@@ -17,9 +17,9 @@ homepage = "https://r3bl.com"
 license = "Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-concolor-query = "0.3.3"
+is-terminal = "0.4.0"
+is_ci = "1.1.1"
 
 [dev-dependencies]
 pretty_assertions = "1.2.1"

@@ -76,8 +76,8 @@ pub enum Style {
 
 mod style_impl {
     use crate::{
-        color_support_override_get, Color, ColorSupportOverride, RgbColor, SgrCode, Style,
-        TransformColor,
+        color_support_override_get, supports_color, Color, ColorSupport, ColorSupportOverride,
+        RgbColor, SgrCode, Stream, Style, TransformColor,
     };
     use std::fmt::{Display, Formatter, Result};
 
@@ -87,21 +87,17 @@ mod style_impl {
         Background,
     }
 
-    fn query_color_support_override() -> ColorSupportOverride {
-        if color_support_override_get() == ColorSupportOverride::NotSet {
-            if concolor_query::truecolor() {
-                ColorSupportOverride::Truecolor
-            } else {
-                ColorSupportOverride::Ansi256
-            }
-        } else {
-            color_support_override_get()
+    fn query_runtime_color_support() -> ColorSupport {
+        match color_support_override_get() {
+            ColorSupportOverride::NotSet => supports_color(Stream::Stdout),
+            ColorSupportOverride::Ansi256 => ColorSupport::Ansi256,
+            ColorSupportOverride::Truecolor => ColorSupport::Truecolor,
         }
     }
 
     fn fmt_color(color: Color, color_kind: ColorKind, f: &mut Formatter<'_>) -> Result {
-        match query_color_support_override() {
-            ColorSupportOverride::Ansi256 => {
+        match query_runtime_color_support() {
+            ColorSupport::Ansi256 => {
                 // ANSI 256 color mode.
                 let color = color.as_ansi256();
                 let index = color.index;
