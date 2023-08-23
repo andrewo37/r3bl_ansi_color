@@ -46,6 +46,14 @@
 //! |:--:|
 //! | *Running on Windows Terminal* |
 //!
+//! | ![macOS screenshot Terminal app](https://github.com/r3bl-org/r3bl_ansi_color/raw/main/docs/screenshot_macos_terminal_app.png) |
+//! |:--:|
+//! | *Running on macOS terminal app (note ANSI 256 runtime detection)* |
+//!
+//! | ![macOS screenshot iTerm app](https://github.com/r3bl-org/r3bl_ansi_color/raw/main/docs/screenshot_macos_iterm_app.png) |
+//! |:--:|
+//! | *Running on macOS terminal app (note Truecolor runtime detection)* |
+//!
 //! ## How to use it?
 //!
 //! The main struct that we have to consider is `AnsiStyledText`. It has two fields:
@@ -116,6 +124,28 @@
 //! - <https://www.ditig.com/256-colors-cheat-sheet>
 //! - <https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences>
 //! - <https://www.compuphase.com/cmetric.htm>
+//!
+//! ## Why make a new crate for this?
+//! <a id="markdown-why-make-a-new-crate-for-this%3F" name="why-make-a-new-crate-for-this%3F"></a>
+//!
+//! - There are a few crates on crates.io that do similar things but they don't amenable
+//!   licenses.
+//! - Other crates simply ignore ANSI 256 colors and only support truecolor, even when they
+//!   claim that they support it.
+//! - And there are other crates which don't correctly report that macOS Terminal.app does not
+//!   support truecolor and only supports ANSI 256 color.
+//!
+//! Here are some links:
+//!
+//! 1. <https://github.com/rust-cli/concolor/issues/47>
+//! 1. <https://docs.rs/anstream/latest/anstream/>
+//! 1. <https://docs.rs/colorchoice/latest/colorchoice/>
+//! 1. <https://docs.rs/colorchoice-clap/latest/colorchoice_clap/>
+//! 1. <https://docs.rs/anstyle-query/latest/anstyle_query/fn.term_supports_ansi_color.html>
+//! 1. <https://crates.io/crates/anstyle-query>
+//! 1. <https://docs.rs/supports-color/2.0.0/supports_color/>
+//! 1. <https://crates.io/crates/ansi_colours>
+//! 1. <https://crates.io/crates/colored>
 
 // https://github.com/rust-lang/rust-clippy
 // https://rust-lang.github.io/rust-clippy/master/index.html
