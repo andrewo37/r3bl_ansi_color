@@ -76,7 +76,7 @@ pub enum Style {
 
 mod style_impl {
     use crate::{
-        color_support_override_get, supports_color, Color, ColorSupport, ColorSupportOverride,
+        supports_color, color_support_set_get, Color, ColorSupport,
         RgbColor, SgrCode, Stream, Style, TransformColor,
     };
     use std::fmt::{Display, Formatter, Result};
@@ -88,10 +88,11 @@ mod style_impl {
     }
 
     fn query_runtime_color_support() -> ColorSupport {
-        match color_support_override_get() {
-            ColorSupportOverride::NotSet => supports_color(Stream::Stdout),
-            ColorSupportOverride::Ansi256 => ColorSupport::Ansi256,
-            ColorSupportOverride::Truecolor => ColorSupport::Truecolor,
+        match color_support_set_get() {
+            ColorSupport::NotSet => supports_color(Stream::Stdout),
+            ColorSupport::Ansi256 => ColorSupport::Ansi256,
+            ColorSupport::Truecolor => ColorSupport::Truecolor,
+            ColorSupport::NoColor => ColorSupport::NoColor,
         }
     }
 
@@ -170,7 +171,7 @@ mod display_trait_impl {
 
         #[test]
         fn test_formatted_string_creation_ansi256() -> Result<(), String> {
-            color_support_override_set(ColorSupportOverride::Ansi256);
+            color_support_override_set(ColorSupport::Ansi256);
             let eg_1 = AnsiStyledText {
                 text: "Hello",
                 style: &[
@@ -204,7 +205,7 @@ mod display_trait_impl {
 
         #[test]
         fn test_formatted_string_creation_truecolor() -> Result<(), String> {
-            color_support_override_set(ColorSupportOverride::Truecolor);
+            color_support_override_set(ColorSupport::Truecolor);
             let eg_1 = AnsiStyledText {
                 text: "Hello",
                 style: &[

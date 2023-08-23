@@ -47,19 +47,19 @@ fn main() {
 
     // Set the color support override to ANSI 256 color mode.
     {
-        color_support_override_set(ColorSupportOverride::Ansi256);
+        color_support_override_set(ColorSupport::Ansi256);
         print_text("> Force ANSI 256 color mode");
     }
 
     // Set the color support override to truecolor mode.
     {
-        color_support_override_set(ColorSupportOverride::Truecolor);
+        color_support_override_set(ColorSupport::Truecolor);
         print_text("> Force truecolor mode");
     }
 
     // Use runtime detection to determine the color support.
     {
-        color_support_override_set(ColorSupportOverride::NotSet);
+        color_support_override_set(ColorSupport::NotSet);
         let msg = format!(
             "> Runtime detection of color support ({:?})",
             supports_color(Stream::Stdout)
