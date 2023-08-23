@@ -63,13 +63,17 @@ pub fn supports_color(stream: Stream) -> ColorSupport {
         return ColorSupport::Truecolor;
     }
 
+    if env::consts::OS == "windows"
+    {
+        return ColorSupport::Truecolor;
+    }
+
     if env::var("COLORTERM").is_ok()
         || env::var("TERM").map(|term| check_ansi_color(&term)) == Ok(true)
-        || env::consts::OS == "windows"
         || env::var("CLICOLOR").map_or(false, |v| v != "0")
         || is_ci::uncached()
     {
-        return ColorSupport::Ansi256;
+        return ColorSupport::Truecolor;
     }
 
     ColorSupport::NoColor
