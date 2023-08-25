@@ -76,8 +76,8 @@ pub enum Style {
 
 mod style_impl {
     use crate::{
-        supports_color, color_support_set_get, Color, ColorSupport,
-        RgbColor, SgrCode, Stream, Style, TransformColor,
+        color_support_get, supports_color, Color, ColorSupport, RgbColor, SgrCode, Stream, Style,
+        TransformColor,
     };
     use std::fmt::{Display, Formatter, Result};
 
@@ -88,7 +88,7 @@ mod style_impl {
     }
 
     fn query_runtime_color_support() -> ColorSupport {
-        match color_support_set_get() {
+        match color_support_get() {
             ColorSupport::NotSet => supports_color(Stream::Stdout),
             ColorSupport::Ansi256 => ColorSupport::Ansi256,
             ColorSupport::Truecolor => ColorSupport::Truecolor,

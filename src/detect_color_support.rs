@@ -15,18 +15,12 @@
  *   limitations under the License.
  */
 
+use once_cell::sync::Lazy;
 use std::env;
 use std::sync::{Arc, Mutex};
-use once_cell::sync::Lazy;
 
-static COLOR_SUPPORT_SET_VALUE_MUTEX_LOCK: Lazy<Arc<Mutex<i8>>> = Lazy::new(|| {
-    Arc::new(Mutex::new(-1 as i8))
-});
-
-
-/// Global [ColorSupport] override.
-// static mut COLOR_SUPPORT_SET_VALUE: AtomicI8 =
-//     AtomicI8::new(ColorSupport::NotSet as i8);
+static COLOR_SUPPORT_GLOBAL: Lazy<Arc<Mutex<ColorSupport>>> =
+    Lazy::new(|| Arc::new(Mutex::new(ColorSupport::NotSet)));
 
 #[test]
 fn test_supports_color() {
@@ -50,6 +44,7 @@ pub enum ColorSupport {
     NotSet,
 }
 
+/// These trail implementations allow us to use `ColorSupport` and `i8` interchangeably.
 mod convert_between_color_and_i8 {
     impl From<i8> for super::ColorSupport {
         fn from(value: i8) -> Self {
@@ -100,8 +95,7 @@ pub fn supports_color(stream: Stream) -> ColorSupport {
         return ColorSupport::Truecolor;
     }
 
-    if env::consts::OS == "windows"
-    {
+    if env::consts::OS == "windows" {
         return ColorSupport::Truecolor;
     }
 
@@ -117,18 +111,19 @@ pub fn supports_color(stream: Stream) -> ColorSupport {
 }
 
 pub fn color_support_override_set(value: ColorSupport) {
-    let color_support = Arc::clone(&COLOR_SUPPORT_SET_VALUE_MUTEX_LOCK);
-    let mut support_set = color_support.lock().unwrap();
-    *support_set = value.into();
-
-    // unsafe {
-    //     COLOR_SUPPORT_SET_VALUE.store(value.into(), Ordering::SeqCst);
-    // };
+    let it = COLOR_SUPPORT_GLOBAL.clone();
+    let guard = it.lock();
+    if let Ok(mut support_set) = guard {
+        *support_set = value;
+    }
 }
 
-pub fn color_support_set_get() -> ColorSupport {
-    ColorSupport::from(*COLOR_SUPPORT_SET_VALUE_MUTEX_LOCK.lock().unwrap())
-    // unsafe { COLOR_SUPPORT_SET_VALUE.load(Ordering::SeqCst).into() }
+pub fn color_support_get() -> ColorSupport {
+    if let Ok(it) = COLOR_SUPPORT_GLOBAL.lock() {
+        *it
+    } else {
+        ColorSupport::NotSet
+    }
 }
 
 fn is_a_tty(stream: Stream) -> bool {
@@ -166,5 +161,31 @@ fn as_str<E>(option: &Result<String, E>) -> Result<&str, &E> {
     match option {
         Ok(inner) => Ok(inner),
         Err(e) => Err(e),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn set_works() {
+        fn one_cycle() {
+            color_support_override_set(ColorSupport::Ansi256);
+            assert_eq!(color_support_get(), ColorSupport::Ansi256);
+
+            color_support_override_set(ColorSupport::Truecolor);
+            assert_eq!(color_support_get(), ColorSupport::Truecolor);
+
+            color_support_override_set(ColorSupport::NoColor);
+            assert_eq!(color_support_get(), ColorSupport::NoColor);
+
+            color_support_override_set(ColorSupport::NotSet);
+            assert_eq!(color_support_get(), ColorSupport::NotSet);
+        }
+
+        for _ in 0..10 {
+            one_cycle();
+        }
     }
 }

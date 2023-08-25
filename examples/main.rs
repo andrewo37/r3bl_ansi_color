@@ -48,13 +48,15 @@ fn main() {
     // Set the color support override to ANSI 256 color mode.
     {
         color_support_override_set(ColorSupport::Ansi256);
-        print_text("> Force ANSI 256 color mode");
+        let msg: String = format!("> Force ANSI 256 color mode ({:?})", color_support_get());
+        print_text(&msg);
     }
 
     // Set the color support override to truecolor mode.
     {
         color_support_override_set(ColorSupport::Truecolor);
-        print_text("> Force truecolor mode");
+        let msg: String = format!("> Force True color mode ({:?})", color_support_get());
+        print_text(&msg);
     }
 
     // Use runtime detection to determine the color support.
