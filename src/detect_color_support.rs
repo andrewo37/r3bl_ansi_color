@@ -15,12 +15,18 @@
  *   limitations under the License.
  */
 
-use std::sync::atomic::{AtomicI8, Ordering};
 use std::env;
+use std::sync::{Arc, Mutex};
+use once_cell::sync::Lazy;
+
+static COLOR_SUPPORT_SET_VALUE_MUTEX_LOCK: Lazy<Arc<Mutex<i8>>> = Lazy::new(|| {
+    Arc::new(Mutex::new(-1 as i8))
+});
+
 
 /// Global [ColorSupport] override.
-static mut COLOR_SUPPORT_SET_VALUE: AtomicI8 =
-    AtomicI8::new(ColorSupport::NotSet as i8);
+// static mut COLOR_SUPPORT_SET_VALUE: AtomicI8 =
+//     AtomicI8::new(ColorSupport::NotSet as i8);
 
 #[test]
 fn test_supports_color() {
@@ -111,13 +117,18 @@ pub fn supports_color(stream: Stream) -> ColorSupport {
 }
 
 pub fn color_support_override_set(value: ColorSupport) {
-    unsafe {
-        COLOR_SUPPORT_SET_VALUE.store(value.into(), Ordering::SeqCst);
-    };
+    let color_support = Arc::clone(&COLOR_SUPPORT_SET_VALUE_MUTEX_LOCK);
+    let mut support_set = color_support.lock().unwrap();
+    *support_set = value.into();
+
+    // unsafe {
+    //     COLOR_SUPPORT_SET_VALUE.store(value.into(), Ordering::SeqCst);
+    // };
 }
 
 pub fn color_support_set_get() -> ColorSupport {
-    unsafe { COLOR_SUPPORT_SET_VALUE.load(Ordering::SeqCst).into() }
+    ColorSupport::from(*COLOR_SUPPORT_SET_VALUE_MUTEX_LOCK.lock().unwrap())
+    // unsafe { COLOR_SUPPORT_SET_VALUE.load(Ordering::SeqCst).into() }
 }
 
 fn is_a_tty(stream: Stream) -> bool {
